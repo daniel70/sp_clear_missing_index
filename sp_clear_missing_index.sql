@@ -30,7 +30,7 @@ while @@FETCH_STATUS = 0 begin
 	set @db_name = QUOTENAME(db_name(@database_id));
 	set @stmt = concat('select * into ##missing_index_columns from ', @db_name, '.sys.columns where object_id = @object_id');
 	exec sys.sp_executesql @stmt=@stmt, @params=N'@object_id int', @object_id=@object_id
-	
+	-- instead of using a global temp table we will use OUT variables to get a column name and type
 	
 	update #missing_index set col = @db_name where current of table_cursor;
 
