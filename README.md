@@ -20,3 +20,6 @@ Here is what the procedure does:
 By creating the index SQL Server will remove the entry for this table from the missing index tables.
 
 If you find any issues with this procedure please create an Issue here on GitHub. You can also leave your suggestions here.
+
+Some performance metrics:
+SQL 2014 with 166 entries took 96 seconds
