@@ -20,11 +20,7 @@ BEGIN;
 
 	-- TODO: check sql server version
 	-- TODO: check sysadmin
-	-- TODO: write explanation
-	-- TODO: write disclaimer
 	-- TODO: make animated gif example
-	-- TODO: make into sproc
-	-- TODO: change repo name
 
 	/*
 	MIT License

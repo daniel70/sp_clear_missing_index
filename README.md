@@ -14,7 +14,7 @@ I hope that Microsoft wil get around to implementing this with their new release
 Here is what the procedure does:
 1. find all tables that have missing indexes
 2. per table find one column with numbers (int or tinyint or smallint etc.) or characters (varchar, nvarchar, text etc.)
-3. create an index called "missing_index" on this table for this column with a WHERE clause, e.g. WHERE [Id] = 42
+3. create an index called "missing_index" on this table for this column with a WHERE clause, e.g. WHERE [Id] = 42. The WHERE clause will keep this index small. For numbers we filter on 42, for characters we filter on "Q".  
 4. drop the index
 
 By creating the index SQL Server will remove the entry for this table from the missing index tables.
