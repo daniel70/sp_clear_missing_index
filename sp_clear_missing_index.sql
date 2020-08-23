@@ -3,6 +3,8 @@
 -- TODO: write explanation
 -- TODO: write disclaimer
 -- TODO: make animated gif example
+-- TODO: make into sproc
+-- TODO: change repo name
 
 IF OBJECT_ID(N'tempdb.dbo.#missing_index', N'U') IS NOT NULL
 	DROP TABLE #missing_index;
@@ -62,7 +64,7 @@ fetch next from table_cursor into @database_id, @object_id, @statement;
 while @@FETCH_STATUS = 0 begin
 	set @db_name = QUOTENAME(db_name(@database_id));
 	set @stmt = concat(
-		'select top 1 @column_name = c.name, @type_name = dt.type_name from', @db_name, '.sys.columns c
+		'select top 1 @column_name = QUOTENAME(c.name), @type_name = dt.type_name from', @db_name, '.sys.columns c
 			join #missing_index_data_types dt on c.system_type_id = dt.type_id
 		 where object_id = @object_id
 		 order by dt.id asc
@@ -91,10 +93,6 @@ while @@FETCH_STATUS = 0 begin
 	fetch next from table_cursor into @database_id, @object_id, @statement;
 
 end;
-close table_cursor
-deallocate table_cursor
-
-
-
+close table_cursor;
+deallocate table_cursor;
 --select * from #missing_index;
-
