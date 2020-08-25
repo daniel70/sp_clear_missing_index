@@ -18,10 +18,6 @@ AS
 SET NOCOUNT ON;
 BEGIN;
 
-	-- TODO: check sql server version
-	-- TODO: check sysadmin
-	-- TODO: make animated gif example
-
 	/*
 	MIT License
 

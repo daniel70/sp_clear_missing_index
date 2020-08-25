@@ -34,11 +34,6 @@ By creating the index SQL Server will remove the entry for this table from the m
 
 As you can see in the example there are 62 missing indexes. It takes the procedure 12 seconds to create and delete a filtered indes on all tables. At the end there is only one missing index. This one was created during the time it took me to run the last query because SQL Server is running a lot of queries.
 
-## Short example
-
-Because everybody like to copy and paste code rather than figuring out what columns to create etcetera, I have some sample code that you can use to create your own jobs:
-
-
 
 If you find any issues with this procedure please create an Issue here on GitHub. You can also leave your suggestions here.  
 Also, if you are using this code on your server(s) and you are happy with the results, consider giving this repo a star. I would love to know if people are using it.
