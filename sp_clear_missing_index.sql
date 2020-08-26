@@ -104,18 +104,22 @@ BEGIN;
 			@params=N'@object_id int, @column_name sysname OUTPUT, @type_name VARCHAR(9) OUTPUT',
 			@object_id=@object_id,
 			@column_name = @column_name OUTPUT,
-			@type_name = @type_name OUTPUT
+			@type_name = @type_name OUTPUT;
 	
-		IF @type_name = 'NUMBER' BEGIN
-			SET @create_stmt = CONCAT(N'CREATE INDEX missing_index ON ', @statement, N'(', @column_name, N') WHERE ', @column_name, N' = 42');
-		END
+		SET @create_stmt = CONCAT(N'CREATE INDEX missing_index ON ', @statement, N'(', @column_name, N') WHERE ', @column_name);
+		IF @type_name = 'NUMBER'
+			SET @create_stmt += N' = 42';
+		ELSE IF @type_name = 'CHARACTER'
+			SET @create_stmt += N' = ''Q''';
 		ELSE BEGIN
-			SET @create_stmt = CONCAT(N'CREATE INDEX missing_index ON ', @statement, N'(', @column_name, N') WHERE ', @column_name, N' = ''Q''');
-		END
-		-- PRINT @create_stmt;
+			PRINT @statement + ' has no columns of type NUMBER or CHARACTER, skipping...';
+			FETCH NEXT FROM table_cursor INTO @database_id, @object_id, @statement;
+			CONTINUE;
+		END;
+
 		EXEC sp_executesql @create_stmt;
+		
 		SET @drop_stmt = CONCAT(N'DROP INDEX missing_index ON ', @statement);
-		--PRINT @drop_stmt;
 		EXEC sp_executesql @drop_stmt;
 
 		FETCH NEXT FROM table_cursor INTO @database_id, @object_id, @statement;
